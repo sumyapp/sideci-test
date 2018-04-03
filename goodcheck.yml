@@ -1,0 +1,121 @@
+rules:
+  - id: com.sideci.js.localstorage
+    pattern:
+      token: localStorage
+    glob:
+      - "**/*.js"
+      - "**/*.jsx"
+      - "**/*.ts"
+      - "**/*.tsx"
+    message: |
+      `localStorage` を使うときには注意が必要です
+
+      Safariのプライベートブラウジングなどで `localStorage` にアクセスしたときに例外が発生したりします。
+      `localStorage` にアクセスするときには、例外が発生しても問題ないように、処理に工夫をしてください。
+    fail: |
+      localStorage.setItem('abyssinian.issuesDescription.closed', 'true');
+    justification:
+      - 例外処理がされている場合
+      - 管理画面などで、エンドユーザーがアクセスしない場合
+  - id: com.sideci.not-actcat
+    pattern:
+      regexp: actcat
+      case_insensitive: true
+    message:
+      Actcatという名称を使わないでください。
+
+      Actcat, Inc. は消滅しました。
+      現在の社名はSideCI, Inc.(SideCI株式会社)です。
+    glob:
+      - "**/*.rb"
+      - "**/*.{js,jsx}"
+      - "**/*.{yaml,yml}"
+      - "**/*.{erb,slim,html}"
+      - "**/*.md"
+    fail:
+      - Actcat, Inc.
+      - actcat
+    pass:
+      - SideCI, Inc.
+  - id: com.sideci.company-name
+    pattern:
+      regexp: 株式会社\s*SideCI
+    message:
+      SideCI株式会社は後株です。前株ではありません。
+    glob:
+      - "**/*.rb"
+      - "**/*.{js,jsx}"
+      - "**/*.{yaml,yml}"
+      - "**/*.{erb,slim,html}"
+      - "**/*.md"
+    fail:
+      - 株式会社SideCI
+      - 株式会社 SideCI
+    pass:
+      - SideCI株式会社
+  - id: com.sideci.npm.no-dev-dependencies
+    pattern: '"devDependencies"'
+    message:
+      devDependencies は使いません
+
+      私たちはwebpackを使ってアプリケーションを開発しており、ビルドの過程でインストールするモジュールをdevとproductionに区別する理由はありません。
+      自信をもって `npm install` しましょう。
+    glob:
+      - "**/package.json"
+    fail:
+      - |
+        "devDependencies": { ... }
+    pass:
+      - devDependencies
+      - |
+        "dependencies": { ... }
+  - id: com.sideci.misspell.github
+    pattern: Github
+    message: |
+      GitHub is GitHub, not Github
+    glob:
+      - "**/*.rb"
+      - "**/*.{js,jsx}"
+      - "**/*.{yaml,yml}"
+      - "**/*.{erb,slim,html}"
+      - "**/*.md"
+  - id: com.sideci.misspell.rubocop
+    pattern: Rubocop
+    message: |
+      RuboCop is RuboCop, not Rubocop
+    glob:
+      - "**/*.rb"
+      - "**/*.{js,jsx}"
+      - "**/*.{yaml,yml}"
+      - "**/*.{erb,slim,html}"
+      - "**/*.md"
+  - id: com.sideci.misspell.checkstyle
+    pattern: CheckStyle
+    message: |
+      Checkstyle is Checkstyle, not CheckStyle
+    glob:
+      - "**/*.rb"
+      - "**/*.{js,jsx}"
+      - "**/*.{yaml,yml}"
+      - "**/*.{erb,slim,html}"
+      - "**/*.md"
+  - id: com.sideci.misspell.rails_best_practicies
+    pattern: rails_best_practice
+    message: |
+      rails_best_practices is rails_best_practices, not rails_best_practice
+    glob:
+      - "**/*.rb"
+      - "**/*.{js,jsx}"
+      - "**/*.{yaml,yml}"
+      - "**/*.{erb,slim,html}"
+      - "**/*.md"
+  - id: com.sideci.misspell.RailsBestPractices
+    pattern: Rails Best Practice
+    message: |
+      Rails Best Practices is Rails Best Practices, not Rails Best Practice
+    glob:
+      - "**/*.rb"
+      - "**/*.{js,jsx}"
+      - "**/*.{yaml,yml}"
+      - "**/*.{erb,slim,html}"
+      - "**/*.md"
