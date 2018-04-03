@@ -2,7 +2,7 @@ this is test
 
 # sideci-test
 
-Github
+GitHub
 
 professionalisim
 professionalism
